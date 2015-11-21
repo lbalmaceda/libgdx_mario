@@ -23,7 +23,7 @@ public class WorldContactListener implements ContactListener {
             Fixture object = head == fixA ? fixB : fixA;
 
             if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((InteractiveTileObject)object.getUserData()).onHeadHit();
+                ((InteractiveTileObject) object.getUserData()).onHeadHit();
             }
         }
     }
