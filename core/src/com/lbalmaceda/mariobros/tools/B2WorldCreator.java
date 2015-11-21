@@ -60,13 +60,13 @@ public class B2WorldCreator {
         //layer 4: coins
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Coin(screen, rect);
+            new Coin(screen, object);
         }
 
         //layer 5: bricks
         for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Brick(screen, rect);
+            new Brick(screen, object);
         }
 
         //layer 6: goombas

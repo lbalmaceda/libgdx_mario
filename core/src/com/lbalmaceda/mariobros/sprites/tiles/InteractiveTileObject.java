@@ -1,5 +1,7 @@
 package com.lbalmaceda.mariobros.sprites.tiles;
 
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
@@ -23,12 +25,14 @@ public abstract class InteractiveTileObject {
     protected Body body;
     protected Fixture fixture;
     protected PlayScreen screen;
+    protected MapObject object;
 
-    public InteractiveTileObject(PlayScreen screen, Rectangle bounds) {
+    public InteractiveTileObject(PlayScreen screen, MapObject object) {
         this.screen = screen;
         this.world = screen.getWorld();
         this.map = screen.getMap();
-        this.bounds = bounds;
+        this.object = object;
+        this.bounds = ((RectangleMapObject) object).getRectangle();
 
         BodyDef bdef = new BodyDef();
         FixtureDef fdef = new FixtureDef();

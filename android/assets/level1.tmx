@@ -52,7 +52,11 @@
   <object id="130" x="3312" y="160" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="coins">
-  <object id="133" x="96" y="128" width="16" height="16"/>
+  <object id="133" x="96" y="128" width="16" height="16">
+   <properties>
+    <property name="mushroom" value=""/>
+   </properties>
+  </object>
   <object id="134" x="128" y="128" width="16" height="16"/>
   <object id="135" x="448" y="144" width="16" height="16"/>
   <object id="141" x="784" y="128" width="16" height="16"/>
