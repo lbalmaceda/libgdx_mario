@@ -40,6 +40,7 @@ public class Mario extends Sprite {
     private boolean marioIsBig;
     private boolean runGrowAnimation;
     private boolean timeToDefineBigMario;
+    private boolean timeToRedefineMario;
 
     public Mario(PlayScreen playScreen) {
         this.world = playScreen.getWorld();
@@ -117,6 +118,39 @@ public class Mario extends Sprite {
         if (timeToDefineBigMario) {
             defineBigMario();
         }
+        if (timeToRedefineMario) {
+            redefineMario();
+        }
+    }
+
+    private void redefineMario() {
+        Vector2 currentPosition = b2body.getPosition();
+        world.destroyBody(b2body);
+
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(currentPosition);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
+
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(6 / MarioBros.PPM);
+
+        fdef.filter.categoryBits = MarioBros.MARIO_BIT;
+        fdef.filter.maskBits = MarioBros.GROUND_BIT | MarioBros.COIN_BIT | MarioBros.ITEM_BIT
+                | MarioBros.BRICK_BIT | MarioBros.ENEMY_BIT | MarioBros.OBJECT_BIT | MarioBros.ENEMY_HEAD_BIT;
+        fdef.shape = shape;
+
+        b2body.createFixture(fdef).setUserData(this);
+
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / MarioBros.PPM, 7 / MarioBros.PPM), new Vector2(2 / MarioBros.PPM, 7 / MarioBros.PPM));
+        fdef.shape = head;
+        fdef.filter.categoryBits = MarioBros.MARIO_HEAD_BIT;
+        fdef.isSensor = true;
+
+        b2body.createFixture(fdef).setUserData(this);
+        timeToRedefineMario = false;
     }
 
     private void defineBigMario() {
@@ -210,6 +244,18 @@ public class Mario extends Sprite {
         timeToDefineBigMario = true;
         setBounds(getX(), getY(), 16 / MarioBros.PPM, 32 / MarioBros.PPM);
         MarioBros.manager.get("audio/sounds/powerup.wav", Sound.class).play();
+    }
+
+
+    public void hit() {
+        if (marioIsBig) {
+            marioIsBig = false;
+            timeToRedefineMario = true;
+            setBounds(getX(), getY(), getWidth(), getHeight() / 2);
+            MarioBros.manager.get("audio/sounds/powerdown.wav", Sound.class).play();
+        } else {
+            MarioBros.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
+        }
     }
 
     public boolean isBig() {

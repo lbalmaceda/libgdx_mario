@@ -186,6 +186,7 @@ public class PlayScreen implements Screen {
         b2dr.dispose();
         world.dispose();
         hud.dispose();
+        music.dispose();
     }
 
     public TextureAtlas getAtlas() {

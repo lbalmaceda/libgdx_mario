@@ -1,7 +1,6 @@
 package com.lbalmaceda.mariobros.tools;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -40,7 +39,11 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case MarioBros.MARIO_BIT | MarioBros.ENEMY_BIT:
-                Gdx.app.log("MARIO", "Died");
+                if (fixA.getFilterData().categoryBits == MarioBros.MARIO_BIT) {
+                    ((Mario) fixA.getUserData()).hit();
+                } else {
+                    ((Mario) fixB.getUserData()).hit();
+                }
                 break;
 
             case MarioBros.ENEMY_BIT | MarioBros.ENEMY_BIT:
