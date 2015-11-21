@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.lbalmaceda.mariobros.MarioBros;
 import com.lbalmaceda.mariobros.scenes.Hud;
+import com.lbalmaceda.mariobros.sprites.Goomba;
 import com.lbalmaceda.mariobros.sprites.Mario;
 import com.lbalmaceda.mariobros.tools.B2WorldCreator;
 import com.lbalmaceda.mariobros.tools.WorldContactListener;
@@ -34,6 +35,7 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
 
     private Mario player;
+    private Goomba goomba;
     private World world;
     private Box2DDebugRenderer b2dr;
 
@@ -54,10 +56,11 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
-        new B2WorldCreator(world, map);
+        new B2WorldCreator(this);
 
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
-        player = new Mario(world, this);
+        player = new Mario(this);
+        goomba = new Goomba(this, 32 / MarioBros.PPM, 32 / MarioBros.PPM);
 
         world.setContactListener(new WorldContactListener());
 
@@ -70,6 +73,14 @@ public class PlayScreen implements Screen {
     public void show() {
     }
 
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
     public void update(float dt) {
         handleInput(dt);
 
@@ -77,6 +88,7 @@ public class PlayScreen implements Screen {
         gameCam.position.x = player.b2body.getPosition().x;
         hud.update(dt);
         player.update(dt);
+        goomba.update(dt);
         gameCam.update();
         renderer.setView(gameCam);
     }
@@ -103,6 +115,7 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        goomba.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);

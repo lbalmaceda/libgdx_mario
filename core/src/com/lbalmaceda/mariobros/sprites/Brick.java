@@ -2,19 +2,18 @@ package com.lbalmaceda.mariobros.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
 import com.lbalmaceda.mariobros.MarioBros;
 import com.lbalmaceda.mariobros.scenes.Hud;
+import com.lbalmaceda.mariobros.screens.PlayScreen;
 
 /**
  * Created by lbalmaceda on 11/21/15.
  */
 public class Brick extends InteractiveTileObject {
 
-    public Brick(World world, TiledMap map, Rectangle bounds) {
-        super(world, map, bounds);
+    public Brick(PlayScreen screen, Rectangle bounds) {
+        super(screen, bounds);
         fixture.setUserData(this);
         setCategoryFilter(MarioBros.BRICK_BIT);
     }
