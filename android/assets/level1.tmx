@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" nextobjectid="242">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" nextobjectid="246">
  <tileset firstgid="1" name="tileset_gutter" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924">
   <image source="tileset_gutter.png" width="594" height="504"/>
  </tileset>
@@ -129,5 +129,11 @@
   <object id="236" x="2977.48" y="183.143"/>
   <object id="237" x="3084.18" y="184.169"/>
   <object id="240" x="3470.99" y="183.656"/>
+ </objectgroup>
+ <objectgroup name="turtles">
+  <object id="242" x="524" y="184"/>
+  <object id="243" x="3060" y="180"/>
+  <object id="244" x="3560" y="184"/>
+  <object id="245" x="812" y="120"/>
  </objectgroup>
 </map>
