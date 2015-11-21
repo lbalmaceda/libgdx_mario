@@ -3,6 +3,7 @@ package com.lbalmaceda.mariobros.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -25,6 +26,7 @@ import com.lbalmaceda.mariobros.tools.WorldContactListener;
 public class PlayScreen implements Screen {
     private final MarioBros game;
     private final Hud hud;
+    private final Music music;
     private OrthographicCamera gameCam;
     private final FitViewport gamePort;
     private TmxMapLoader mapLoader;
@@ -58,6 +60,10 @@ public class PlayScreen implements Screen {
         player = new Mario(world, this);
 
         world.setContactListener(new WorldContactListener());
+
+        music = MarioBros.manager.get("audio/music/mario_music.ogg", Music.class);
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -69,6 +75,7 @@ public class PlayScreen implements Screen {
 
         world.step(1 / 60f, 6, 2);
         gameCam.position.x = player.b2body.getPosition().x;
+        hud.update(dt);
         player.update(dt);
         gameCam.update();
         renderer.setView(gameCam);
