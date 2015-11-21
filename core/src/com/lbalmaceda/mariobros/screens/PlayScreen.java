@@ -87,6 +87,9 @@ public class PlayScreen implements Screen {
         hud.update(dt);
         player.update(dt);
         for (Enemy enemy : creator.getGoombas()) {
+            if (enemy.getX() < player.getX() + 224 / MarioBros.PPM) {
+                enemy.b2body.setActive(true);
+            }
             enemy.update(dt);
         }
         gameCam.update();
