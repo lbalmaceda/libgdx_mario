@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" nextobjectid="204">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" nextobjectid="242">
  <tileset firstgid="1" name="tileset_gutter" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924">
   <image source="tileset_gutter.png" width="594" height="504"/>
  </tileset>
@@ -115,5 +115,15 @@
   <object id="201" x="3504" y="128" width="16" height="16"/>
   <object id="202" x="3520" y="128" width="16" height="16"/>
   <object id="203" x="3536" y="128" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="goombas">
+  <object id="225" x="293.952" y="181.091"/>
+  <object id="228" x="618.171" y="183.143"/>
+  <object id="229" x="1010.11" y="184.682"/>
+  <object id="230" x="1177.86" y="181.604"/>
+  <object id="231" x="1849.38" y="182.117"/>
+  <object id="236" x="2977.48" y="183.143"/>
+  <object id="237" x="3084.18" y="184.169"/>
+  <object id="240" x="3470.99" y="183.656"/>
  </objectgroup>
 </map>
