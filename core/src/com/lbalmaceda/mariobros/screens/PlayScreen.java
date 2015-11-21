@@ -17,6 +17,7 @@ import com.lbalmaceda.mariobros.MarioBros;
 import com.lbalmaceda.mariobros.scenes.Hud;
 import com.lbalmaceda.mariobros.sprites.Mario;
 import com.lbalmaceda.mariobros.tools.B2WorldCreator;
+import com.lbalmaceda.mariobros.tools.WorldContactListener;
 
 /**
  * Created by lbalmaceda on 11/20/15.
@@ -55,6 +56,8 @@ public class PlayScreen implements Screen {
 
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
         player = new Mario(world, this);
+
+        world.setContactListener(new WorldContactListener());
     }
 
     @Override
