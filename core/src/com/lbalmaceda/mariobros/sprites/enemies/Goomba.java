@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.lbalmaceda.mariobros.MarioBros;
 import com.lbalmaceda.mariobros.screens.PlayScreen;
+import com.lbalmaceda.mariobros.sprites.Mario;
 
 /**
  * Created by lbalmaceda on 11/21/15.
@@ -91,7 +92,7 @@ public class Goomba extends Enemy {
     }
 
     @Override
-    public void onHeadHit() {
+    public void onHeadHit(Mario mario) {
         setToDestroy = true;
         MarioBros.manager.get("audio/sounds/stomp.wav", Sound.class).play();
     }

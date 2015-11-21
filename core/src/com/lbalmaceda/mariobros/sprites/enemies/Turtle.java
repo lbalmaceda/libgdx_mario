@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.lbalmaceda.mariobros.MarioBros;
 import com.lbalmaceda.mariobros.screens.PlayScreen;
+import com.lbalmaceda.mariobros.sprites.Mario;
 
 /**
  * Created by lbalmaceda on 11/21/15.
@@ -22,7 +23,10 @@ public class Turtle extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
 
-    public enum State {WALKING, SHELL}
+    public static final int KICK_LEFT_SPEED = -2;
+    public static final int KICK_RIGHT_SPEED = 2;
+
+    public enum State {WALKING, STANDING_SHELL, MOVING_SHELL}
 
     public State currentState;
     public State previousState;
@@ -39,21 +43,14 @@ public class Turtle extends Enemy {
         //shell
         shell = new TextureRegion(screen.getAtlas().findRegion("turtle"), 64, 0, 16, 24);
         currentState = State.WALKING;
+        previousState = State.WALKING;
         setBounds(getX(), getY(), 16 / MarioBros.PPM, 24 / MarioBros.PPM);
-    }
-
-    @Override
-    public void onHeadHit() {
-        if (currentState != State.SHELL) {
-            currentState = State.SHELL;
-            velocity.x = 0;
-        }
     }
 
     @Override
     public void update(float dt) {
         setRegion(getFrame(dt));
-        if (currentState == State.SHELL && stateTime > 5) {
+        if (currentState == State.STANDING_SHELL && stateTime > 5) {
             currentState = State.WALKING;
             velocity.x = 1;
         }
@@ -65,7 +62,8 @@ public class Turtle extends Enemy {
         TextureRegion region;
 
         switch (currentState) {
-            case SHELL:
+            case MOVING_SHELL:
+            case STANDING_SHELL:
                 region = shell;
                 break;
             default:
@@ -79,9 +77,26 @@ public class Turtle extends Enemy {
         } else if (velocity.x < 0 && region.isFlipX()) {
             region.flip(true, false);
         }
-        stateTime = currentState == previousState ? stateTime + dt : 0;
+        stateTime = currentState != previousState ? stateTime + dt : 0;
 
         return region;
+    }
+
+    @Override
+    public void onHeadHit(Mario mario) {
+        previousState = currentState;
+        if (currentState != State.STANDING_SHELL) {
+            currentState = State.STANDING_SHELL;
+            velocity.x = 0;
+        } else {
+            kick(mario.getX() <= this.getX() ? KICK_RIGHT_SPEED : KICK_LEFT_SPEED);
+            currentState = Turtle.State.MOVING_SHELL;
+        }
+    }
+
+    public void kick(int speed) {
+        velocity.x = speed;
+        currentState = State.MOVING_SHELL;
     }
 
 
@@ -112,10 +127,14 @@ public class Turtle extends Enemy {
         head.set(vertice);
 
         fdef.shape = head;
-        fdef.restitution = 0.5f;
+        fdef.restitution = 0.3f;
         fdef.filter.categoryBits = MarioBros.ENEMY_HEAD_BIT;
 
         b2body.createFixture(fdef).setUserData(this);
 
+    }
+
+    public State getCurrentState() {
+        return currentState;
     }
 }
