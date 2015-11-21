@@ -12,9 +12,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.lbalmaceda.mariobros.MarioBros;
 import com.lbalmaceda.mariobros.screens.PlayScreen;
-import com.lbalmaceda.mariobros.sprites.Brick;
-import com.lbalmaceda.mariobros.sprites.Coin;
-import com.lbalmaceda.mariobros.sprites.Goomba;
+import com.lbalmaceda.mariobros.sprites.tiles.Brick;
+import com.lbalmaceda.mariobros.sprites.tiles.Coin;
+import com.lbalmaceda.mariobros.sprites.enemies.Goomba;
 
 /**
  * Created by lbalmaceda on 11/21/15.

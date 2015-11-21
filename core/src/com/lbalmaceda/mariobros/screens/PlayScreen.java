@@ -20,7 +20,7 @@ import com.lbalmaceda.mariobros.item.Item;
 import com.lbalmaceda.mariobros.item.ItemDef;
 import com.lbalmaceda.mariobros.item.Mushroom;
 import com.lbalmaceda.mariobros.scenes.Hud;
-import com.lbalmaceda.mariobros.sprites.Enemy;
+import com.lbalmaceda.mariobros.sprites.enemies.Enemy;
 import com.lbalmaceda.mariobros.sprites.Mario;
 import com.lbalmaceda.mariobros.tools.B2WorldCreator;
 import com.lbalmaceda.mariobros.tools.WorldContactListener;

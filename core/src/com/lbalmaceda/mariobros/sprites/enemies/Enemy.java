@@ -1,4 +1,4 @@
-package com.lbalmaceda.mariobros.sprites;
+package com.lbalmaceda.mariobros.sprites.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;

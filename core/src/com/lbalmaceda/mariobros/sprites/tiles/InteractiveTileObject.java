@@ -1,4 +1,4 @@
-package com.lbalmaceda.mariobros.sprites;
+package com.lbalmaceda.mariobros.sprites.tiles;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
