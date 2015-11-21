@@ -60,7 +60,7 @@ public class PlayScreen implements Screen {
 
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
         player = new Mario(this);
-        goomba = new Goomba(this, 32 / MarioBros.PPM, 32 / MarioBros.PPM);
+        goomba = new Goomba(this, 90 / MarioBros.PPM, 32 / MarioBros.PPM);
 
         world.setContactListener(new WorldContactListener());
 
