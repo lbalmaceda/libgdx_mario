@@ -13,13 +13,19 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.lbalmaceda.mariobros.MarioBros;
+import com.lbalmaceda.mariobros.item.Item;
+import com.lbalmaceda.mariobros.item.ItemDef;
+import com.lbalmaceda.mariobros.item.Mushroom;
 import com.lbalmaceda.mariobros.scenes.Hud;
 import com.lbalmaceda.mariobros.sprites.Enemy;
 import com.lbalmaceda.mariobros.sprites.Mario;
 import com.lbalmaceda.mariobros.tools.B2WorldCreator;
 import com.lbalmaceda.mariobros.tools.WorldContactListener;
+
+import java.util.PriorityQueue;
 
 /**
  * Created by lbalmaceda on 11/20/15.
@@ -40,6 +46,9 @@ public class PlayScreen implements Screen {
     private B2WorldCreator creator;
 
     private TextureAtlas atlas;
+
+    private Array<Item> items;
+    private PriorityQueue<ItemDef> itemsToSpawn;
 
     public PlayScreen(MarioBros game) {
         this.game = game;
@@ -65,6 +74,22 @@ public class PlayScreen implements Screen {
         music = MarioBros.manager.get("audio/music/mario_music.ogg", Music.class);
         music.setLooping(true);
         music.play();
+
+        items = new Array<Item>();
+        itemsToSpawn = new PriorityQueue<ItemDef>();
+    }
+
+    public void spawnItem(ItemDef def) {
+        itemsToSpawn.add(def);
+    }
+
+    public void handleSpawningItems() {
+        if (!itemsToSpawn.isEmpty()) {
+            ItemDef idef = itemsToSpawn.poll();
+            if (idef.type.equals(Mushroom.class)) {
+                items.add(new Mushroom(this, idef.position.x, idef.position.y));
+            }
+        }
     }
 
     @Override
@@ -81,6 +106,7 @@ public class PlayScreen implements Screen {
 
     public void update(float dt) {
         handleInput(dt);
+        handleSpawningItems();
 
         world.step(1 / 60f, 6, 2);
         gameCam.position.x = player.b2body.getPosition().x;
@@ -91,6 +117,9 @@ public class PlayScreen implements Screen {
                 enemy.b2body.setActive(true);
             }
             enemy.update(dt);
+        }
+        for (Item item : items) {
+            item.update(dt);
         }
         gameCam.update();
         renderer.setView(gameCam);
@@ -120,6 +149,9 @@ public class PlayScreen implements Screen {
         player.draw(game.batch);
         for (Enemy enemy : creator.getGoombas()) {
             enemy.draw(game.batch);
+        }
+        for (Item item : items) {
+            item.draw(game.batch);
         }
         game.batch.end();
 
