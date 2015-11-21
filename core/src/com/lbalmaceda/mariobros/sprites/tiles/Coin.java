@@ -10,6 +10,7 @@ import com.lbalmaceda.mariobros.item.ItemDef;
 import com.lbalmaceda.mariobros.item.Mushroom;
 import com.lbalmaceda.mariobros.scenes.Hud;
 import com.lbalmaceda.mariobros.screens.PlayScreen;
+import com.lbalmaceda.mariobros.sprites.Mario;
 
 /**
  * Created by lbalmaceda on 11/21/15.
@@ -26,7 +27,7 @@ public class Coin extends InteractiveTileObject {
     }
 
     @Override
-    public void onHeadHit() {
+    public void onHeadHit(Mario mario) {
         Gdx.app.log("Coin", "Collision");
         if (getCell().getTile().getId() != BLANK_COIN) {
             Hud.addScore(100);

@@ -22,6 +22,7 @@ public class MarioBros extends Game {
     public static final short ENEMY_BIT = 64;
     public static final short ENEMY_HEAD_BIT = 128;
     public static final short ITEM_BIT = 256;
+    public static final short MARIO_HEAD_BIT = 512;
 
     /*
         Dont use AssetManager in a static way/context in android. Pass the instance around.

@@ -1,12 +1,11 @@
 package com.lbalmaceda.mariobros.sprites.tiles;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.math.Rectangle;
 import com.lbalmaceda.mariobros.MarioBros;
 import com.lbalmaceda.mariobros.scenes.Hud;
 import com.lbalmaceda.mariobros.screens.PlayScreen;
+import com.lbalmaceda.mariobros.sprites.Mario;
 
 /**
  * Created by lbalmaceda on 11/21/15.
@@ -20,11 +19,16 @@ public class Brick extends InteractiveTileObject {
     }
 
     @Override
-    public void onHeadHit() {
-        Gdx.app.log("Brick", "Collision");
-        setCategoryFilter(MarioBros.DESTROYED_BIT);
-        getCell().setTile(null);
-        Hud.addScore(200);
-        MarioBros.manager.get("audio/sounds/breakblock.wav", Sound.class).play();
+    public void onHeadHit(Mario mario) {
+        if (mario.isBig()) {
+            setCategoryFilter(MarioBros.DESTROYED_BIT);
+            getCell().setTile(null);
+            Hud.addScore(200);
+            MarioBros.manager.get("audio/sounds/breakblock.wav", Sound.class).play();
+        } else {
+            MarioBros.manager.get("audio/sounds/bump.wav", Sound.class).play();
+
+        }
+
     }
 }
