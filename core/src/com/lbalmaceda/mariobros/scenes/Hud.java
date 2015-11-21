@@ -9,11 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.lbalmaceda.mariobros.MarioBros;
+import com.sun.media.jfxmediaimpl.MediaDisposer;
 
 /**
  * Created by lbalmaceda on 11/20/15.
  */
-public class Hud {
+public class Hud implements MediaDisposer.Disposable{
     public Stage stage;
     private FitViewport viewport;
     private Integer worldTimer;
@@ -54,5 +55,10 @@ public class Hud {
         table.add(countdownLabel).expandX();
 
         stage.addActor(table);
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 }
