@@ -20,12 +20,12 @@ import com.lbalmaceda.mariobros.item.Item;
 import com.lbalmaceda.mariobros.item.ItemDef;
 import com.lbalmaceda.mariobros.item.Mushroom;
 import com.lbalmaceda.mariobros.scenes.Hud;
-import com.lbalmaceda.mariobros.sprites.enemies.Enemy;
 import com.lbalmaceda.mariobros.sprites.Mario;
+import com.lbalmaceda.mariobros.sprites.enemies.Enemy;
 import com.lbalmaceda.mariobros.tools.B2WorldCreator;
 import com.lbalmaceda.mariobros.tools.WorldContactListener;
 
-import java.util.PriorityQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by lbalmaceda on 11/20/15.
@@ -48,7 +48,7 @@ public class PlayScreen implements Screen {
     private TextureAtlas atlas;
 
     private Array<Item> items;
-    private PriorityQueue<ItemDef> itemsToSpawn;
+    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     public PlayScreen(MarioBros game) {
         this.game = game;
@@ -76,7 +76,7 @@ public class PlayScreen implements Screen {
         music.play();
 
         items = new Array<Item>();
-        itemsToSpawn = new PriorityQueue<ItemDef>();
+        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
     }
 
     public void spawnItem(ItemDef def) {
