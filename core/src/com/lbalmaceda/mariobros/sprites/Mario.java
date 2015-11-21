@@ -279,6 +279,14 @@ public class Mario extends Sprite {
         }
     }
 
+    public boolean isMarioIsDead() {
+        return marioIsDead;
+    }
+
+    public float getStateTimer() {
+        return stateTimer;
+    }
+
     public boolean isBig() {
         return marioIsBig;
     }
