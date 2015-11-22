@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.lbalmaceda.mariobros.MarioBros;
 import com.lbalmaceda.mariobros.screens.PlayScreen;
 import com.lbalmaceda.mariobros.sprites.Mario;
+import com.lbalmaceda.mariobros.tools.B2WorldCreator;
 
 /**
  * Created by lbalmaceda on 11/21/15.
@@ -68,6 +69,7 @@ public class Turtle extends Enemy {
             if (stateTime > 5 && !destroyed) {
                 world.destroyBody(b2body);
                 destroyed = true;
+                B2WorldCreator.scheduleEnemyDelete(this);
             }
         } else {
             b2body.setLinearVelocity(velocity);

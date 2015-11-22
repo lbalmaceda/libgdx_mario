@@ -22,8 +22,8 @@ import com.lbalmaceda.mariobros.sprites.tiles.Coin;
  * Created by lbalmaceda on 11/21/15.
  */
 public class B2WorldCreator {
-    private Array<Goomba> goombas;
-    private Array<Turtle> turtles;
+    private static Array<Goomba> goombas;
+    private static Array<Turtle> turtles;
 
     public B2WorldCreator(PlayScreen screen) {
         World world = screen.getWorld();
@@ -92,5 +92,13 @@ public class B2WorldCreator {
         enemies.addAll(goombas);
         enemies.addAll(turtles);
         return enemies;
+    }
+
+    public static void scheduleEnemyDelete(Enemy enemy) {
+        if (enemy instanceof Turtle) {
+            turtles.removeValue((Turtle) enemy, false);
+        } else if (enemy instanceof Goomba) {
+            goombas.removeValue((Goomba) enemy, false);
+        }
     }
 }

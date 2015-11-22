@@ -1,6 +1,5 @@
 package com.lbalmaceda.mariobros.sprites.tiles;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
@@ -28,7 +27,6 @@ public class Coin extends InteractiveTileObject {
 
     @Override
     public void onHeadHit(Mario mario) {
-        Gdx.app.log("Coin", "Collision");
         if (getCell().getTile().getId() != BLANK_COIN) {
             Hud.addScore(100);
             if (object.getProperties().containsKey("mushroom")) {
