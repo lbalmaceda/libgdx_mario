@@ -130,6 +130,10 @@ public class Mario extends Sprite {
         if (timeToRedefineMario) {
             redefineMario();
         }
+
+        if (!marioIsDead && getY() < 0) {
+            kill();
+        }
     }
 
     private void redefineMario() {
@@ -260,6 +264,21 @@ public class Mario extends Sprite {
         MarioBros.manager.get("audio/sounds/powerup.wav", Sound.class).play();
     }
 
+    public void jump() {
+        if (currentState == State.JUMPING) {
+            return;
+        }
+        b2body.applyLinearImpulse(new Vector2(0, 4), b2body.getWorldCenter(), true);
+    }
+
+    public void move(boolean toRight) {
+        if (toRight) {
+            b2body.applyLinearImpulse(new Vector2(0.1f, 0), b2body.getWorldCenter(), true);
+        } else {
+            b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
+        }
+    }
+
 
     public void hit(Enemy enemy) {
         if (enemy instanceof Turtle && ((Turtle) enemy).getCurrentState() == Turtle.State.STANDING_SHELL) {
@@ -271,18 +290,21 @@ public class Mario extends Sprite {
                 setBounds(getX(), getY(), getWidth(), getHeight() / 2);
                 MarioBros.manager.get("audio/sounds/powerdown.wav", Sound.class).play();
             } else {
-                MarioBros.manager.get("audio/music/mario_music.ogg", Music.class).stop();
-                MarioBros.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
-                marioIsDead = true;
-                Filter filter = new Filter();
-                filter.maskBits = MarioBros.NOTHING_BIT;
-                for (Fixture fixture : b2body.getFixtureList()) {
-                    fixture.setFilterData(filter);
-                }
-                b2body.applyLinearImpulse(new Vector2(0, 3), b2body.getWorldCenter(), true);
-
+                kill();
             }
         }
+    }
+
+    private void kill() {
+        MarioBros.manager.get("audio/music/mario_music.ogg", Music.class).stop();
+        MarioBros.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
+        marioIsDead = true;
+        Filter filter = new Filter();
+        filter.maskBits = MarioBros.NOTHING_BIT;
+        for (Fixture fixture : b2body.getFixtureList()) {
+            fixture.setFilterData(filter);
+        }
+        b2body.applyLinearImpulse(new Vector2(0, 3), b2body.getWorldCenter(), true);
     }
 
     public boolean isMarioIsDead() {
